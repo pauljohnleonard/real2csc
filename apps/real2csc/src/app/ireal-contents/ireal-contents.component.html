@@ -1,0 +1,12 @@
+<div
+  style="
+    max-height: 70%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+  "
+>
+  <div *ngFor="let song of ireal.songBook.songs">
+    {{ song.title }}
+  </div>
+</div>

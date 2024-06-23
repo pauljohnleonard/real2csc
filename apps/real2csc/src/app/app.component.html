@@ -1,1 +1,7 @@
-<app-nx-welcome></app-nx-welcome> <router-outlet></router-outlet>
+<h1>irealPro to crc converter.</h1>
+
+<app-load-ireal *ngIf="!ireal.contents"> </app-load-ireal>
+
+<app-ireal-contents *ngIf="ireal.songBook"></app-ireal-contents>
+
+<button *ngIf="ireal.songBook" (click)="ireal.saveFiles()">Save</button>
