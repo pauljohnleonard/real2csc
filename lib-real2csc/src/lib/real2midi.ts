@@ -3,7 +3,6 @@ import {
   MidiEndOfTrackEvent,
   MidiEvent,
   MidiHeader,
-  MidiTextEvent,
 } from 'midi-file';
 import { RealSong } from './ireal/classes';
 
