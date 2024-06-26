@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Buffer } from 'buffer';
 
-import {
-  RealSongList,
-  createCRC,
-  iRealReader,
-  real2midi,
-} from '@real2csc/lib-real2csc';
+import { createCRC, real2midi } from '@real2csc/lib-real2csc';
+import { Playlist, Song } from 'ireal-musicxml';
 
 type CRCFile = {
   name: string;
@@ -18,22 +14,24 @@ type CRCFile = {
 })
 export class IrealService {
   contents!: string;
-  songBook!: RealSongList;
+  playList!: Playlist;
   crcFiles!: CRCFile[];
   load(contents: string) {
     this.crcFiles = [];
     this.contents = contents;
-    this.songBook = iRealReader(contents);
-    for (const song of this.songBook.songs) {
-      console.log(song.title);
-      try {
-        const midiJSON = real2midi(song);
-        const buf = createCRC(midiJSON);
-        this.crcFiles.push({ name: song.title, content: buf });
-      } catch (error) {
-        console.error(error);
-      }
-    }
+    this.playList = new Playlist(contents);
+    console.log(JSON.stringify(this.playList, null, 2));
+
+    // for (const song of this.songBook.songs) {
+    //   console.log(song.title);
+    //   try {
+    //     const midiJSON = real2midi(song);
+    //     const buf = createCRC(midiJSON);
+    //     this.crcFiles.push({ name: song.title, content: buf });
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // }
   }
 
   async saveFiles() {
